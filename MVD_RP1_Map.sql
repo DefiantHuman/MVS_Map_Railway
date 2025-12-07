@@ -2030,7 +2030,7 @@ CREATE PROCEDURE call_RMPObject_Event_RMPObject_Open
    IN    Bound_dX                      DOUBLE,
    IN    Bound_dY                      DOUBLE,
    IN    Bound_dZ                      DOUBLE,
-   OUT   twRMPObjectIx_Open            BIGINT,
+   INOUT twRMPObjectIx_Open            BIGINT,
    OUT   bError                        INT,
    IN    bReparent                     TINYINT UNSIGNED
 )
@@ -2726,7 +2726,13 @@ BEGIN
        DECLARE Self_bType      TINYINT UNSIGNED;
        DECLARE Self_bSubtype   TINYINT UNSIGNED;
 
-            IF ObjectHead_Parent_wClass = SBO_CLASS_RMPOBJECT
+            IF ObjectHead_Parent_wClass = SBO_CLASS_RMTOBJECT
+          THEN
+                 SELECT Type_bType
+                   INTO Parent_bType
+                   FROM RMTObject AS o
+                  WHERE o.ObjectHead_Self_twObjectIx = ObjectHead_Parent_twObjectIx;
+        ELSEIF ObjectHead_Parent_wClass = SBO_CLASS_RMPOBJECT
           THEN
                  SELECT o.Type_bType, o.Type_bSubtype
                    INTO Parent_bType, Parent_bSubtype
@@ -5365,7 +5371,7 @@ CREATE PROCEDURE call_RMTObject_Event_RMPObject_Open
    IN    Bound_dX                      DOUBLE,
    IN    Bound_dY                      DOUBLE,
    IN    Bound_dZ                      DOUBLE,
-   OUT   twRMPObjectIx_Open            BIGINT,
+   INOUT twRMPObjectIx_Open            BIGINT,
    OUT   bError                        INT,
    IN    bReparent                     TINYINT UNSIGNED
 )
@@ -6563,7 +6569,13 @@ BEGIN
        DECLARE Self_bType      TINYINT UNSIGNED;
        DECLARE Self_bSubtype   TINYINT UNSIGNED;
 
-            IF ObjectHead_Parent_wClass = SBO_CLASS_RMTOBJECT
+            IF ObjectHead_Parent_wClass = SBO_CLASS_RMCOBJECT
+          THEN
+                 SELECT Type_bType
+                   INTO Parent_bType
+                   FROM RMCObject AS o
+                  WHERE o.ObjectHead_Self_twObjectIx = ObjectHead_Parent_twObjectIx;
+        ELSEIF ObjectHead_Parent_wClass = SBO_CLASS_RMTOBJECT
           THEN
                  SELECT o.Type_bType, o.Type_bSubtype
                    INTO Parent_bType, Parent_bSubtype
@@ -12259,7 +12271,7 @@ CREATE PROCEDURE call_RMRoot_Event_RMPObject_Open
    IN    Bound_dX                      DOUBLE,
    IN    Bound_dY                      DOUBLE,
    IN    Bound_dZ                      DOUBLE,
-   OUT   twRMPObjectIx_Open            BIGINT,
+   INOUT twRMPObjectIx_Open            BIGINT,
    OUT   bError                        INT,
    IN    bReparent                     TINYINT UNSIGNED
 )
