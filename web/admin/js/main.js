@@ -5217,6 +5217,21 @@ updateUndoRedoButtons();
 // Initialize properties panel visibility (hidden initially since no objects selected)
 updateTransformButtonStates();
 
+// ===== Publish Scene Modal =====
+const publishSceneBtn = document.getElementById('publishScene');
+const publishingModal = document.getElementById('publishingModal');
+
+if (publishSceneBtn && publishingModal) {
+    publishSceneBtn.addEventListener('click', () => {
+        // Show the publishing modal
+        const modal = new bootstrap.Modal(publishingModal, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        modal.show();
+    });
+}
+
 // Update button states periodically to handle code editor focus changes
 setInterval(() => {
     updateUndoRedoButtons();
