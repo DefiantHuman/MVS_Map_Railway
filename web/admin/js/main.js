@@ -5224,12 +5224,24 @@ const publishingModal = document.getElementById('publishingModal');
 if (publishSceneBtn && publishingModal) {
     publishSceneBtn.addEventListener('click', () => {
         // Show the publishing modal
-        const modal = new bootstrap.Modal(publishingModal, {
+        const modal = new bootstrap.Modal (publishingModal, {
             backdrop: 'static',
             keyboard: false
         });
-        modal.show();
+        modal.show ();
+
+        g_pMap.onPublish ();
     });
+}
+
+function ClosePublishModal ()
+{
+   let modalElement = document.getElementById ('publishingModal');
+   let modalInstance = bootstrap.Modal.getInstance (modalElement);
+   if (modalInstance) 
+   {
+      modalInstance.hide ();
+   }
 }
 
 // Update button states periodically to handle code editor focus changes

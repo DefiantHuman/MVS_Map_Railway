@@ -42,8 +42,6 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       this.#jPObject = this.jSelector.find ('.jsPObject');
       this.#jPObject.on ('change', this.onClick_Scene.bind (this));
 
-      this.jSelector.find ('.jsPublish').on ('click', this.onPublish.bind (this));
-
       this.#m_pFabric = new MV.MVRP.MSF (sURL, MV.MVRP.MSF.eMETHOD.GET);
       this.#m_pFabric.Attach (this);
    }
@@ -690,9 +688,11 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
       }
 
       this.UpdateEditor ();
+
+      ClosePublishModal ();
    }
 
-   onPublish (e)
+   onPublish ()
    {
       let sJSON = getJSONEditorText ();
       let pJSONObject = JSON.parse (sJSON);
@@ -706,7 +706,7 @@ class ExtractMap extends MV.MVMF.NOTIFICATION
 
             this.GetRemovedNodes (pJSONObject[0], this.#pRMXRoot, mpRemovedNodes);
             this.UpdateRMPObject (pJSONObject[0], this.#m_MapRMXItem[this.#m_wClass_Object + '-' + this.#m_twObjectIx], mpRemovedNodes, true);
-            this.RemoveRMPObject (mpRemovedNodes);
+            this.RemoveRMPObject (mpRemovedNodes, modal);
          }
          else
          {
